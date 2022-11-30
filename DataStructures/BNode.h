@@ -8,14 +8,14 @@ using namespace std;
  * \brief Node for use in binary tree.
  */
 template<class T>
-struct Node
+struct BNode
 {
-    Node(T data) : data(data)
+    BNode(T data) : data(data)
     {
         left = right = nullptr;
     }
     
-    Node *left, *right;
+    BNode *left, *right;
     T data;
 
     void print()

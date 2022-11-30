@@ -1,12 +1,14 @@
 #include <iostream>
 #include "BinarySearchTree.h"
+#include "LNode.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    BinarySearchTree<float> tree;
-    tree.add(5, 3, 4, 7, 6, 8, 2);
-    tree.print_sorted(tree.root);
+    auto* node = new LNode<string>("heyo");
+
+    node->print();
+    
     return 0;
 }

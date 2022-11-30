@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "Node.h"
+
+#include "BNode.h"
 #include <iostream>
 #include <random>
 
@@ -18,14 +19,14 @@ template <class T>
 class BinarySearchTree
 {
 public:
-    Node<T>* root = nullptr;
+    BNode<T>* root = nullptr;
 
     /**
      * \brief Add a node to the binary tree.
      * \param data The value the new node should have.
      * \return Ptr to the new node.
      */
-    Node<T>* add(const T& data);
+    BNode<T>* add(const T& data);
 
     /**
      * \brief Add a set of nodes to the binary tree.
@@ -50,7 +51,7 @@ public:
      * \param rt The tree's root node.
      * \remarks In-order tree traversal.
      */
-    void print_sorted(Node<T>* rt);
+    void print_sorted(BNode<T>* rt);
 
     /**
      * \brief Print the value of every
@@ -58,7 +59,7 @@ public:
      * \param rt The tree's root node.
      * \remarks Post-order tree traversal.
      */
-    void print_unsorted(Node<T>* rt);
+    void print_unsorted(BNode<T>* rt);
 
     /**
      * \param rt The tree's root node.
@@ -66,7 +67,7 @@ public:
      * \return Pointer to the found node. Nullptr
      * if no node was found.
      */
-    Node<T>* find(Node<T>* rt, const T& value);
+    BNode<T>* find(BNode<T>* rt, const T& value);
 
     /**
      * \brief Fills the list with integers starting
@@ -89,17 +90,17 @@ public:
 private:
     int size_ = 0;
     
-    Node<T>* add_recursive(const T& data, Node<T>* rt);
+    BNode<T>* add_recursive(const T& data, BNode<T>* rt);
 };
 
 
 
 template<class T>
-Node<T>* BinarySearchTree<T>::add(const T& data)
+BNode<T>* BinarySearchTree<T>::add(const T& data)
 {
     if (!root)
     {
-     root = new Node<T>(data);
+     root = new BNode<T>(data);
      size_++;
      return root;
     }
@@ -108,19 +109,19 @@ Node<T>* BinarySearchTree<T>::add(const T& data)
 }
 
 template<class T>
-Node<T>* BinarySearchTree<T>::add_recursive(const T& data, Node<T>* rt)
+BNode<T>* BinarySearchTree<T>::add_recursive(const T& data, BNode<T>* rt)
 {
     if (data < rt->data)
     {
      if (rt->left) return add_recursive(data, rt->left);
-     rt->left = new Node<T>(data);
+     rt->left = new BNode<T>(data);
      size_++;
      return rt->left;
     }
     else if (data > rt->data)
     {
      if (rt->right) return add_recursive(data, rt->right);
-     rt->right = new Node<T>(data);
+     rt->right = new BNode<T>(data);
      size_++;
      return rt->right;
     }
@@ -129,7 +130,7 @@ Node<T>* BinarySearchTree<T>::add_recursive(const T& data, Node<T>* rt)
 }
 
 template<class T>
-void BinarySearchTree<T>::print_sorted(Node<T>* rt)
+void BinarySearchTree<T>::print_sorted(BNode<T>* rt)
 {
     // Go as far left as we can
     if (rt->left) print_sorted(rt->left);
@@ -138,7 +139,7 @@ void BinarySearchTree<T>::print_sorted(Node<T>* rt)
 }
 
 template<class T>
-void BinarySearchTree<T>::print_unsorted(Node<T>* rt)
+void BinarySearchTree<T>::print_unsorted(BNode<T>* rt)
 {
     // Go as far left as we can
     if (rt->left) print_unsorted(rt->left);
@@ -147,7 +148,7 @@ void BinarySearchTree<T>::print_unsorted(Node<T>* rt)
 }
 
 template<class T>
-Node<T>* BinarySearchTree<T>::find(Node<T>* rt, const T& value)
+BNode<T>* BinarySearchTree<T>::find(BNode<T>* rt, const T& value)
 {
     // Value is less than root, find it in the left side
     if (value < rt->data) return find(rt->left, value);
