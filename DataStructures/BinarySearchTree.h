@@ -51,7 +51,7 @@ public:
      * \param rt The tree's root node.
      * \remarks In-order tree traversal.
      */
-    void print_sorted(BNode<T>* rt);
+    void print_in_order(BNode<T>* rt);
 
     /**
      * \brief Print the value of every
@@ -59,7 +59,15 @@ public:
      * \param rt The tree's root node.
      * \remarks Post-order tree traversal.
      */
-    void print_unsorted(BNode<T>* rt);
+    void print_post_order(BNode<T>* rt);
+
+    /**
+     * \brief Print the value of every
+     * node.
+     * \param rt The tree's root node.
+     * \remarks Post-order tree traversal.
+     */
+    void print_pre_order(BNode<T>* rt);
 
     /**
      * \param rt The tree's root node.
@@ -130,21 +138,30 @@ BNode<T>* BinarySearchTree<T>::add_recursive(const T& data, BNode<T>* rt)
 }
 
 template<class T>
-void BinarySearchTree<T>::print_sorted(BNode<T>* rt)
+void BinarySearchTree<T>::print_in_order(BNode<T>* rt)
 {
     // Go as far left as we can
-    if (rt->left) print_sorted(rt->left);
+    if (rt->left) print_in_order(rt->left);
     cout << rt->data << " ";
-    if (rt->right) print_sorted(rt->right);
+    if (rt->right) print_in_order(rt->right);
 }
 
 template<class T>
-void BinarySearchTree<T>::print_unsorted(BNode<T>* rt)
+void BinarySearchTree<T>::print_post_order(BNode<T>* rt)
 {
     // Go as far left as we can
-    if (rt->left) print_unsorted(rt->left);
-    if (rt->right) print_unsorted(rt->right);
+    if (rt->left) print_post_order(rt->left);
+    if (rt->right) print_post_order(rt->right);
     cout << rt->data << " ";
+}
+
+template <class T>
+void BinarySearchTree<T>::print_pre_order(BNode<T>* rt)
+{
+    // Go as far left as we can
+    cout << rt->data << " ";
+    if (rt->left) print_post_order(rt->left);
+    if (rt->right) print_post_order(rt->right);
 }
 
 template<class T>

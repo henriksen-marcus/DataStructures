@@ -8,12 +8,12 @@
 template<class T>
 struct LNode
 {
-    LNode(T data) : data(data)
+    LNode(const T& data) : data(data)
     {
         next = nullptr;    
     }
     
-    LNode* next;
+    LNode<T>* next;
     T data;
 
     /**
@@ -22,8 +22,8 @@ struct LNode
     void print()
     {
         std::cout << data << " -> ";
-        if (next) cout << next->data;
+        if (next) std::cout << next->data;
         else cout << "null";
-        cout << "\n";
+        std::cout << "\n";
     }
 };

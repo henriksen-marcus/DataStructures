@@ -1,14 +1,20 @@
 #include <iostream>
 #include "BinarySearchTree.h"
-#include "LNode.h"
+#include "LinkedList.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    auto* node = new LNode<string>("heyo");
+    BinarySearchTree<int> tree;
 
-    node->print();
+    tree.add(10, 5, 3, 15);
+    tree.print_post_order(tree.root);
+    cout << endl;
+    tree.print_in_order(tree.root);
+    cout << endl;
+    tree.print_pre_order(tree.root);
+    
     
     return 0;
 }
