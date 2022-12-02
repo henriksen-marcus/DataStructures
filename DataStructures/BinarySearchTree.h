@@ -44,6 +44,21 @@ public:
         add(args...);
     }
 
+    void remove(const T& value, BNode<T>* rt);
+
+    /**
+     * \return The smallest node from the subtree
+     * of the given root.
+     * \param rt The root node.
+     */
+    BNode<T>* min(BNode<T>* rt);
+
+    /**
+     * \return The largest node from the subtree
+     * of the given root.
+     * \param rt The root node.
+     */
+    BNode<T>* max(BNode<T>* rt);
 
     /**
      * \brief Print the value of every
@@ -65,7 +80,7 @@ public:
      * \brief Print the value of every
      * node.
      * \param rt The tree's root node.
-     * \remarks Post-order tree traversal.
+     * \remarks Pre-order tree traversal.
      */
     void print_pre_order(BNode<T>* rt);
 
@@ -135,6 +150,63 @@ BNode<T>* BinarySearchTree<T>::add_recursive(const T& data, BNode<T>* rt)
     }
     // Duplicate was found
     return nullptr;
+}
+
+template <class T>
+void BinarySearchTree<T>::remove(const T& value, BNode<T>* rt)
+{
+    if (!rt) return;
+    if (value < rt->data) rt->left = ;
+
+    
+    /*// Value doesn't exist
+    if (!rt) return;
+    // Recurse down left branch
+    if (value < rt->data) remove(value, rt->left);
+    // Recurse down right branch
+    else if (value > rt->data) remove(value, rt->right);
+    // We have found the value
+    else
+    {
+        // We have two children
+        if (rt->left && rt->right)
+        { 
+            auto temp = min(rt->right);
+            rt->data = temp->data;
+            remove(rt->data, rt->right);
+            std::cout << "Hey";
+        }
+        // We have 1 or 0 children
+        else if (rt->left)
+        {
+            rt->data = rt->left->data;
+            remove(rt->left);
+        }
+        else if (rt->right)
+        {
+            auto temp = rt->right;
+            rt->data = rt->right->data;
+            rt->right = nullptr;
+            delete temp;
+        }
+        // We have no children, just delete
+        else
+        {
+            delete rt;
+        }
+    }*/
+}
+
+template <class T>
+BNode<T>* BinarySearchTree<T>::min(BNode<T>* rt)
+{
+    return rt->left ? min(rt->left) : rt;
+}
+
+template <class T>
+BNode<T>* BinarySearchTree<T>::max(BNode<T>* rt)
+{
+    return rt->right ? min(rt->right) : rt;
 }
 
 template<class T>
