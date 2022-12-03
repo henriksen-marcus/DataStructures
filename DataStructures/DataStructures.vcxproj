@@ -155,16 +155,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NewFile1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BNode.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LNode.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="hashtable.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

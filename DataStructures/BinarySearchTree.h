@@ -44,7 +44,14 @@ public:
         add(args...);
     }
 
-    void remove(const T& value, BNode<T>* rt);
+    /**
+     * \brief Remove a node from the tree. Automatically
+     * shuffles the nodes back in their correct place.
+     * \param value The value of the node to remove.
+     * \param rt The tree's root node.
+     * \return The updated node (used for recursion).
+     */
+    BNode<T>* remove(const T& value, BNode<T>* rt);
 
     /**
      * \return The smallest node from the subtree
@@ -116,8 +123,6 @@ private:
     BNode<T>* add_recursive(const T& data, BNode<T>* rt);
 };
 
-
-
 template<class T>
 BNode<T>* BinarySearchTree<T>::add(const T& data)
 {
@@ -153,48 +158,52 @@ BNode<T>* BinarySearchTree<T>::add_recursive(const T& data, BNode<T>* rt)
 }
 
 template <class T>
-void BinarySearchTree<T>::remove(const T& value, BNode<T>* rt)
+BNode<T>* BinarySearchTree<T>::remove(const T& value, BNode<T>* rt)
 {
-    if (!rt) return;
-    if (value < rt->data) rt->left = ;
+    // If we find a nullptr it means the value doesn't exist in the tree
+    if (!rt) return rt;
 
-    
-    /*// Value doesn't exist
-    if (!rt) return;
-    // Recurse down left branch
-    if (value < rt->data) remove(value, rt->left);
-    // Recurse down right branch
-    else if (value > rt->data) remove(value, rt->right);
-    // We have found the value
+    // Value is less than the current root 
+    if (value < rt->data) rt->left = remove(value, rt->left);
+    // Value is more than the current root
+    else if (value > rt->data) rt->right = remove(value, rt->right);
     else
-    {
-        // We have two children
-        if (rt->left && rt->right)
-        { 
-            auto temp = min(rt->right);
-            rt->data = temp->data;
-            remove(rt->data, rt->right);
-            std::cout << "Hey";
+    { // We have found the node
+        if (!rt->left and !rt->right)
+        { // No children
+            delete rt; // Deallocate from memory, remove it's value
+            rt = nullptr; // rt still has it's address, we set it to null to be sure
         }
-        // We have 1 or 0 children
-        else if (rt->left)
-        {
-            rt->data = rt->left->data;
-            remove(rt->left);
+        else if (!rt->left)
+        { // One child
+            auto temp = rt;
+            rt = rt->right; // Make the right child the root of the subtree
+            delete temp;
+            
+            /* Remember that rt is currently equal to one of the nodes in the tree.
+             * We cannot delete rt directly because it would make a hole in the tree.
+             * All sub-nodes would be disconnected from the tree.
+             * So we update rt (the current node in the tree) and delete the old
+             * dangling pointer (now referenced by temp). */
         }
-        else if (rt->right)
-        {
-            auto temp = rt->right;
-            rt->data = rt->right->data;
-            rt->right = nullptr;
+        else if (!rt->left)
+        { // One child
+            auto temp = rt;
+            rt = rt->left; // Make the left child the root of the subtree
             delete temp;
         }
-        // We have no children, just delete
         else
-        {
-            delete rt;
+        { // Two children
+            auto temp = min(rt->right); // Get the in-order successor
+            rt->data = temp->data; // Update the current node's data
+
+            /* Now we do some more recursion. BEFORE updating the tree by returning rt,
+             * we delete the in-order successor, so we don't delete the rt right after
+             * updating it. */
+            rt->right = remove(temp->data, rt->right);
         }
-    }*/
+    }
+    return rt; // We return the new state of the current node to update the parent's reference
 }
 
 template <class T>
@@ -214,7 +223,7 @@ void BinarySearchTree<T>::print_in_order(BNode<T>* rt)
 {
     // Go as far left as we can
     if (rt->left) print_in_order(rt->left);
-    cout << rt->data << " ";
+    std::cout << rt->data << " ";
     if (rt->right) print_in_order(rt->right);
 }
 
@@ -224,14 +233,14 @@ void BinarySearchTree<T>::print_post_order(BNode<T>* rt)
     // Go as far left as we can
     if (rt->left) print_post_order(rt->left);
     if (rt->right) print_post_order(rt->right);
-    cout << rt->data << " ";
+    std::cout << rt->data << " ";
 }
 
 template <class T>
 void BinarySearchTree<T>::print_pre_order(BNode<T>* rt)
 {
     // Go as far left as we can
-    cout << rt->data << " ";
+    std::cout << rt->data << " ";
     if (rt->left) print_post_order(rt->left);
     if (rt->right) print_post_order(rt->right);
 }
@@ -253,8 +262,8 @@ int BinarySearchTree<T>::fill(int min, int max, int amount)
     if (!amount) return size_;
     if (amount == -1) amount = max - min + 1;
 
-    uniform_int_distribution<int> dist(min, max);
-    random_device rd;
+    std::uniform_int_distribution<int> dist(min, max);
+    std::random_device rd;
        
     for (int i{}; i < amount; i++)
     {
@@ -262,3 +271,4 @@ int BinarySearchTree<T>::fill(int min, int max, int amount)
     }
     return size();
 }
+
