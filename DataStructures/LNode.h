@@ -23,7 +23,7 @@ struct LNode
     {
         std::cout << data << " -> ";
         if (next) std::cout << next->data;
-        else cout << "null";
+        else std::cout << "null";
         std::cout << "\n";
     }
 };

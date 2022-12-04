@@ -54,6 +54,18 @@ public:
     
     int size() const { return size_; }
 
+    T& operator [](int i)
+    {
+        int counter{};
+        auto current_node = head;
+        while (current_node)
+        {
+            if (counter++ == i) return current_node->data;
+            current_node = current_node->next;
+        }
+        return nullptr;
+    }
+
 private:
     int size_;
 };
