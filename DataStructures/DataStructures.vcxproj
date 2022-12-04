@@ -154,14 +154,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AStar.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PathfindingBoard.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStar.h" />
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BNode.h" />
     <ClInclude Include="HashTable.h" />
+    <ClInclude Include="heapsort.h" />
+    <ClInclude Include="HNode.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LNode.h" />
+    <ClInclude Include="MaxHeap.h" />
+    <ClInclude Include="PathfindingBoard.h" />
+    <ClInclude Include="PNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

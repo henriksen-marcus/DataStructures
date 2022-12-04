@@ -1,30 +1,33 @@
+#include <fstream>
 #include <iostream>
 #include "BinarySearchTree.h"
 #include "HashTable.h"
 #include "LinkedList.h"
+#include "AStar.h"
+#include "PathfindingBoard.h"
+#include "heapsort.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    BinarySearchTree<int> tree;
+    int arr[] = { 12, 11, 13, 5, 6, 7 };
+    int N = sizeof(arr) / sizeof(arr[0]);
 
-    tree.add(100, 50, 150);
+    // Function call
+    heapSort(arr, N);
 
-    /*tree.root->print();
-    tree.remove(50, tree.root);
-    tree.root->print();*/
+    cout << "Sorted array is \n";
+    printArray(arr, N);
 
-    HashTable<int> table;
-    table.add(200);
-    table.add(48239);
-    table.add(29);
-    table.add(199);
-    table.add(198);
-
-    table.print();
-
-    cout << (table.find(29) ? "found" : "not found");
+    return 0;
+    
+    PathfindingBoard board;
+    board.init();
+    LinkedList<PNode*> list;
+    AStar::run(&board, list);
+    cout << list.size() << endl;
+    board.print_board();
     
     return 0;
 }
