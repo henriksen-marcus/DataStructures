@@ -1,5 +1,4 @@
 ﻿#include "PathfindingBoard.h"
-#include <string>
 
 void PathfindingBoard::init()
 {
@@ -13,7 +12,7 @@ void PathfindingBoard::init()
             std::string name = grid[y][x] ? generate_name(loops++) : "BK";
             auto* node = new PNode(name, x, y, !grid[y][x]);
             nodes.push_back(node);
-            std::cout << "created node. name: " << node->name << std::endl;
+        std::cout << "Created node with name: " << node->name << std::endl;
         }
     }
 
@@ -45,7 +44,7 @@ void PathfindingBoard::setup_connections(PNode* node)
     We connect to all adjacent nodes.
     */
 
-    std::cout << "Setting conns for node: " << node->name<< "\n";
+    std::cout << "Setting connections for node: " << node->name<< "\n";
 
     // North west
     PNode* other_node = find(node->x-1, node->y-1);
@@ -118,13 +117,13 @@ void PathfindingBoard::update_priority(PNode* node)
         // Find the right position based on the node's cost
         if (node->cost < priority_queue[i]->cost)
         {
-            printf("		update_priority(): Moved %s before %s in the Priority Queue.", node->name.c_str(), priority_queue[i]->name.c_str());
+            printf("		update_priority(): Moved %s before %s in the priority_queue.", node->name.c_str(), priority_queue[i]->name.c_str());
             priority_queue.insert(node, i);
             return;
         }
     }
     // If the node had a higher cost than all other nodes
-    printf("		UpdatePriority(): Added %s to the end of the Priority Queue.", node->name.c_str());
+    printf("		update_priority(): Added %s to the end of the priority_queue.", node->name.c_str());
     priority_queue.add(node);
 }
 
@@ -134,7 +133,12 @@ std::string PathfindingBoard::generate_name(int i)
     return Number > 0 ? Alphabet[i - Alphabet.size() * Number] + std::to_string(Number) : Alphabet[i];
 }
 
-void PathfindingBoard::print_board()
+float PathfindingBoard::get_heuristic(PNode* n1, PNode* p2)
+{
+    
+}
+
+void PathfindingBoard::print()
 {
     int loops{};
     for (int y{}; y < grid.size(); y++)

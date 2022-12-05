@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     LinkedList<PNode*> list;
     AStar::run(&board, list);
     cout << list.size() << endl;
-    board.print_board();
+    board.print();
     
     return 0;
 }

@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <array>
-#include <queue>
 #include <string>
 #include "PNode.h"
 
@@ -45,10 +44,12 @@ public:
     
     std::vector<std::string> Alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
-
+    // The common name for every node that is blocking the path.
+    std::string blocking_node_name = "BK";
+ 
     /**
      * \brief Create the nodes based on the template
-     * layout of "grid"..
+     * layout of "grid".
      */
     void init();
 
@@ -70,9 +71,22 @@ public:
      */
     PNode* find(int x, int y);
 
+    /**
+     * \brief Moves a node into the correct position in the
+     * priority_queue, based on the node's cost
+     * \param node The node to update
+     */
     void update_priority(PNode* node);
- 
+
+    /**
+     * \brief Generate a short name. Example: A, B1, C6
+     * \param i The iterator in a loop. Used to make each
+     * name unique.
+     * \return The name as a string.
+     */
     std::string generate_name(int i);
+
+    float get_heuristic(PNode* n1, PNode* p2);
  
-    void print_board();
+    void print();
 };
